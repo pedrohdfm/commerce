@@ -6,7 +6,7 @@ import java.util.List;
 public class Commerce {
     List<Product> registeredProducts = new ArrayList<>();
 
-    public boolean verifyCode (int Code) {
+    public boolean verifyCode(int Code) {
         for (Product product : registeredProducts) {
             if (product.getProductCode() == Code) {
                 return false;
@@ -15,20 +15,20 @@ public class Commerce {
         return true;
     }
 
-    public void registerProduct (Product product) {
+    public void registerProduct(Product product) {
         try {
             if (verifyCode(product.getProductCode())) {
                 registeredProducts.add(product);
                 System.out.println("Product registration succesfull! " + product);
-            }else {
+            } else {
                 throw new ProductsException("ERROR! Duplicated product code, please try again.");
             }
-        }catch (ProductsException e) {
+        } catch (ProductsException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void listProducts () {
+    public void listProducts() {
         if (registeredProducts.isEmpty()) {
             System.out.println("No products registered yet.");
         }
@@ -39,7 +39,7 @@ public class Commerce {
         }
     }
 
-    public void removeProduct (int code) {
+    public void removeProduct(int code) {
         if (registeredProducts.isEmpty()) {
             System.out.println("No products registered yet.");
             return;
@@ -52,13 +52,22 @@ public class Commerce {
             System.out.println("Product not found, please try again.");
         }
     }
-        /*for (Product product : registeredProducts) {
-            if (product.getProductCode() == code) {
-                registeredProducts.remove(product);
-                System.out.println("Product removed successfully!");
-                return;
-            } else {
-                System.out.println("Product not found, please try again.");
-            }*/
+
+    public void updateProduct(int stock, int code) {
+        if (registeredProducts.isEmpty()) {
+            System.out.println("No products registered yet.");
+            return;
         }
+        for (Product product : registeredProducts) {
+            if (product.getProductCode() == code) {
+                product.setStock(stock);
+                System.out.println("Product stock updated successfully!");
+                return;
+            }
+        }
+        System.out.println("Product not found, please try again.");
+    }
+}
+
+
 
