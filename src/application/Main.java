@@ -24,7 +24,8 @@ public class Main {
                 System.out.println("2. Register product");
                 System.out.println("3. Remove product");
                 System.out.println("4. Update product stock");
-                System.out.println("5. Exit");
+                System.out.println("5. Sell product");
+                System.out.println("6. Exit");
                 System.out.println("Choose an option: ");
                 int option = sc.nextInt();
                 sc.nextLine();
@@ -89,6 +90,25 @@ public class Main {
                             commerce.updateProduct(stock, code);
                         }
                         case 5 -> {
+                            System.out.println("Enter the product code that you want to sell: ");
+                            int code= 0;
+                            boolean validInput = false;
+                            while(!validInput) {
+                                String input = sc.nextLine();
+                                try{
+                                    code = InputHandler.inputValidator(input);
+                                    validInput = true;
+                                } catch (ProductsException e) {
+                                    System.out.println(e.getMessage());
+                                    System.out.println("Enter the product code: ");
+                                }
+                            }
+                            System.out.println("Enter the quantity to be sold: ");
+                            int quantity = sc.nextInt();
+                            sc.nextLine();
+                            commerce.sellProduct(code, quantity);
+                        }
+                        case 6 -> {
                             System.out.println("Exiting commerce...");
                             closedCommerce = true;
                         }

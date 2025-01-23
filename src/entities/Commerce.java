@@ -67,6 +67,29 @@ public class Commerce {
         }
         System.out.println("Product not found, please try again.");
     }
+
+    public void sellProduct(int code, int quantity) {
+        if (registeredProducts.isEmpty()) {
+            System.out.println("No products registered yet.");
+            return;
+        }
+        for (Product product : registeredProducts) {
+            if(product.getProductCode() == code) {
+                try {
+                    if (quantity > product.getStock()) {
+                        System.out.println("ERROR! The quantity to sell is greater than the stock. ");
+                    }else {
+                        product.setStock(product.getStock() - quantity);
+                        System.out.println("Product sold successfully!");
+                    }
+                }catch (ArithmeticException e) {
+                    System.out.println(e.getMessage());
+                }
+            }else {
+                System.out.println("Product not found, please try again.");
+            }
+        }
+    }
 }
 
 
