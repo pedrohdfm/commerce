@@ -15,6 +15,14 @@ public class Commerce {
         return true;
     }
 
+    private boolean verifyEmptyList(List<Product> registeredProducts) {
+        if (registeredProducts.isEmpty()) {
+            System.out.println("No products registered yet.");
+            return true;
+        }
+        return false;
+    }
+
     public void registerProduct(Product product) {
         try {
             if (verifyCode(product.getProductCode())) {
@@ -29,8 +37,8 @@ public class Commerce {
     }
 
     public void listProducts() {
-        if (registeredProducts.isEmpty()) {
-            System.out.println("No products registered yet.");
+        if (verifyEmptyList(registeredProducts)) {
+            return;
         }
         System.out.println();
         System.out.println("Products list:");
@@ -40,8 +48,7 @@ public class Commerce {
     }
 
     public void removeProduct(int code) {
-        if (registeredProducts.isEmpty()) {
-            System.out.println("No products registered yet.");
+        if (verifyEmptyList(registeredProducts)) {
             return;
         }
         boolean removed = registeredProducts.removeIf(product -> product.getProductCode() == code);
@@ -54,8 +61,7 @@ public class Commerce {
     }
 
     public void updateProduct(int stock, int code) {
-        if (registeredProducts.isEmpty()) {
-            System.out.println("No products registered yet.");
+        if (verifyEmptyList(registeredProducts)) {
             return;
         }
         for (Product product : registeredProducts) {
@@ -69,8 +75,7 @@ public class Commerce {
     }
 
     public void sellProduct(int code, int quantity) {
-        if (registeredProducts.isEmpty()) {
-            System.out.println("No products registered yet.");
+        if (verifyEmptyList(registeredProducts)) {
             return;
         }
         for (Product product : registeredProducts) {
